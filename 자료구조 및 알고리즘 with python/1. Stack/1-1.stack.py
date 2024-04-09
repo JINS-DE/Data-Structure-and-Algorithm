@@ -105,6 +105,21 @@ class ArrayStack:
 
     def size(self) : return self.top+1
 
+    def clear(self) : #clear
+        self.top=-1
+        return self.top
+    def display(self): # 모든 요소를 가장 먼저 들어온 요소대로 순서대로 화면에 출력
+        for i in range(self.top+1):
+            print(self.array[i],end=' ')
+        print()
+
+s = ArrayStack(5)
+msg='12345'
+for i in msg:
+    s.push(i)
+print(s.display())
+
+
 # ex1)
 # s = ArrayStack(5)
 # msg = input("문자열 입력: ")
@@ -113,6 +128,7 @@ class ArrayStack:
 # print("문자열 출력: ", end ='')    
 # while not s.isEmpty():
 #     print(s.pop(), end='')
+
 
 '''
 # 괄호 검사 문제
