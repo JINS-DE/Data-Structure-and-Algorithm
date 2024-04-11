@@ -36,6 +36,7 @@ def hanoi(n,fr,tmp,to):
 
 hanoi(4,'A','B','C')
 
+
 '''
 hanoi(4,'A','B','C')
 ->1 hanoi(3,'A','C','B')
@@ -46,5 +47,5 @@ hanoi(4,'A','B','C')
         9 hanoi(1,'A','C','B') print(1:'A'->'B') 
 ->2 hanoi(2,'A','B','C') => print(2:A->C) 
    4 hanoi(1,'B','A','C') => print(1:B->C) 
-->3 hanoi(1,'A','C','B') => print(1:A->B) 
+->3 hanoi(1,'A','C','B') => print(1:A->B)
 '''
