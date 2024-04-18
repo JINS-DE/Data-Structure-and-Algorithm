@@ -81,4 +81,5 @@ s.insert(1,30)
 s.display()
 s.delete(2)
 s.display()
+print(s.size())
 
