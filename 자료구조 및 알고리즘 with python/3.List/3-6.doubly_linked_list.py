@@ -73,6 +73,8 @@ class DblLinkedList:
             return before
         else: before.popNext()
 
+
+
 d=DblLinkedList()
 d.insert(0,10)
 # d.insert(0,30)
