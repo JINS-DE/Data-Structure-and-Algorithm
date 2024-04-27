@@ -42,3 +42,32 @@ class ArrayQueue:
         self.array[self.rear]=item # 일단 강제 삽입
         if self.isEmpty(): # 삽입 후에도 empty가 뜬다면 포화상태임
             self.front=(self.front+1)%self.capacity # front를 회전시켜 가장 오래된 요소 삭제
+
+class BTNode:
+    def __init__ (self, elem, left=None, right=None):
+        self.data = elem
+        self.left = left # 왼쪽 자식을 위한 링크
+        self.right = right # 오른쪽 자식을 위한 링크
+    def isLeaf(self):
+        return self.left is None and self.right is None
+
+# 1. 전위순회(preorder)
+def preorder(n): 
+    if n is not None:
+        print(n.data, end=' ')
+        preorder(n.left) 
+        preorder(n.right) 
+
+# 2. 중위순회(inorder)
+def inorder(n):
+    if n is not None:
+        inorder(n.left) 
+        print(n.data, end=' ')
+        inorder(n.right)
+
+# 3. 후위순회(postorder)
+def postorder(n):
+    if n is not None:
+        postorder(n.left) 
+        postorder(n.right) 
+        print(n.data, end=' ')

@@ -1,32 +1,3 @@
-class BTNode:
-    def __init__ (self, elem, left=None, right=None):
-        self.data = elem
-        self.left = left # 왼쪽 자식을 위한 링크
-        self.right = right # 오른쪽 자식을 위한 링크
-    def isLeaf(self):
-        return self.left is None and self.right is None
-
-# 1. 전위순회(preorder)
-def preorder(n): 
-    if n is not None:
-        print(n.data, end=' ')
-        preorder(n.left) 
-        preorder(n.right) 
-
-# 2. 중위순회(inorder)
-def inorder(n):
-    if n is not None:
-        inorder(n.left) 
-        print(n.data, end=' ')
-        inorder(n.right)
-
-# 3. 후위순회(postorder)
-def postorder(n):
-    if n is not None:
-        postorder(n.left) 
-        postorder(n.right) 
-        print(n.data, end=' ')
-
 '''
 수식 트리(Expression Tree)란 산술식을 트리 형태로 표현한 이진 트리이다.
 - 하나의 연산자가 두 개의 피연산자를 갖는다고 가정
@@ -37,7 +8,7 @@ def postorder(n):
 - 수식 트리의 계산에는 후위순회가 적용
 
 '''
-
+from import_file import BTNode, preorder,inorder,postorder
 # 수식 트리 계산 함수
 def evaluate(node) :
     if node is None : #공백 트리이면 0 반환
