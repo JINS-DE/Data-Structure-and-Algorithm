@@ -1,17 +1,18 @@
+def solution(babbling):
+    answer=0
+    li=["aya", "ye", "woo", "ma"]
+    for i in babbling:
+        word=''
+        before_word=''
+        for j in i:
+            word+=j
+            if word in li:
+                if before_word != word :
+                    before_word=word
+                    word=''
+        if word=='':
+            answer+=1
+    return answer
+# babbling 예시 
 babbling=["ayayeayaye","mamama" "uuu", "yeye", "yemawoo", "ayay"]
-li=["aya","ye","woo","ma"]
-answer = 0
-for i in babbling:
-    for j in li:
-        repeats=j+j
-        if i in repeats or i=='':
-            break
-        i=i.replace(j,"")
-        
-    print(i)
-    if i=="":
-        answer+=1
-
-# print(answer)
-
-
+print(solution(babbling))
