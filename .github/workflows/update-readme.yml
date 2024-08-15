@@ -1,3 +1,5 @@
+# 이 워크플로우는 update.py 파일을 실행합니다. 즉 README.md 파일을 업데이트합니다.
+
 name: Update readme # GitHub Actions 탭에서 확인할 수 있는 액션 이름
 
 on: # jobs가 실행되어야 하는 상황 정의
@@ -23,8 +25,8 @@ jobs: # 실제 실행될 내용
         python update.py
     - name: Commit changes # 3) 추가된 파일 commit
       run: |
-        git config --global user.name 'JINS-DE' # 유저명
-        git config --global user.email 'rlawlstjd044@naver.com' # 유저 이메일
+        git config --global user.name 'BETTERFUTURE4' # 유저명
+        git config --global user.email 'rerub0831@gmail.com' # 유저 이메일
         git add -A
         git commit -am "auto update README.md" # 커밋 메시지
     - name: Push changes # 4) 메인에 푸시
