@@ -49,3 +49,14 @@ hanoi(4,'A','B','C')
    4 hanoi(1,'B','A','C') => print(1:B->C) 
 ->3 hanoi(1,'A','C','B') => print(1:A->B)
 '''
+
+
+
+def hanoi1(n,fr,tmp,to):
+    if n==1:
+        print(f'{n}:{fr}->{to}')
+    else:
+        hanoi1(n-1,fr,to,tmp) 
+        print(f'{n}:{fr}->{to}')
+        hanoi1(n-1,tmp,fr,to)
+hanoi1(3,'a','b','c')
