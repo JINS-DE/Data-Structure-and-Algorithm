@@ -9,6 +9,7 @@
 | ----- | ----- |
 |1000. A＋B|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1000.%E2%80%85A%EF%BC%8BB/A%EF%BC%8BB.py)|
 |1001. A－B|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1001.%E2%80%85A%EF%BC%8DB/A%EF%BC%8DB.py)|
+|10989. 수 정렬하기 3|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10989.%E2%80%85%EC%88%98%E2%80%85%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0%E2%80%853/%EC%88%98%E2%80%85%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0%E2%80%853.py)|
 |8958. OX퀴즈|[링크](./%EB%B0%B1%EC%A4%80/Bronze/8958.%E2%80%85OX%ED%80%B4%EC%A6%88/OX%ED%80%B4%EC%A6%88.py)|
 ### 🚀 Silver
 | 문제번호 | 링크 |
