@@ -60,6 +60,7 @@
 |3190. 뱀|[링크](./%EB%B0%B1%EC%A4%80/Gold/3190.%E2%80%85%EB%B1%80/README.md)|
 |5639. 이진 검색 트리|[링크](./%EB%B0%B1%EC%A4%80/Gold/5639.%E2%80%85%EC%9D%B4%EC%A7%84%E2%80%85%EA%B2%80%EC%83%89%E2%80%85%ED%8A%B8%EB%A6%AC/README.md)|
 |9084. 동전|[링크](./%EB%B0%B1%EC%A4%80/Gold/9084.%E2%80%85%EB%8F%99%EC%A0%84/%EB%8F%99%EC%A0%84.py)|
+|9251. LCS|[링크](./%EB%B0%B1%EC%A4%80/Gold/9251.%E2%80%85LCS/README.md)|
 |9663. N－Queen|[링크](./%EB%B0%B1%EC%A4%80/Gold/9663.%E2%80%85N%EF%BC%8DQueen/N%EF%BC%8DQueen.py)|
 ### 🚀 Silver
 | 문제번호 | 링크 |
