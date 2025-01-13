@@ -9,8 +9,8 @@ com = set()  # 조합에 사용할 글자 집합
 
 # 입력 처리
 for _ in range(n):
-    inp = input().strip()
-    tmp = set(inp[4:-4]) - word  # 단어에서 'antic'을 제외한 글자만 추출
+    input_word = input().strip()
+    tmp = set(input_word[4:-4]) - word  # 단어에서 'antic'을 제외한 글자만 추출
     li.append(tmp)
     com.update(tmp)  # 전체 조합에 필요한 글자 추가
 
@@ -25,7 +25,7 @@ for comb in combinations(com, min(k - 5, len(com))):  # 최대 k-5개의 글자 
     learn_set = word.union(comb)  # 'antic' + 현재 조합
     count = 0
     for word_set in li:
-        if word_set <= learn_set:  # 현재 단어를 읽을 수 있으면
+        if word_set <= learn_set:  # li 요소가 현재 부분집합에 속하는가?
             count += 1
     max_count = max(max_count, count)
 
