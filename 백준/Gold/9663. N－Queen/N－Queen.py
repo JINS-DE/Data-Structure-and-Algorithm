@@ -1,23 +1,18 @@
-import sys
-input = sys.stdin.readline
+n=int(input())
+answer=0
+v1=[0]*n
+v2=[0]*(2*n)
+v3=[0]*(2*n)
 
-N = int(input())
-result = 0
-columns = [0] * N  # 퀸이 놓일 수 있는 열을 추적
-diagonal1 = [0] * (2 * N - 1)  # / 방향 대각선
-diagonal2 = [0] * (2 * N - 1)  # \ 방향 대각선
-
-def n_queens(row):
-    global result
-    if row == N:
-        result += 1
+def N_Queen(row):
+    global answer
+    if row == n:
+        answer+=1
         return
-    for col in range(N):
-        if columns[col] or diagonal1[row + col] or diagonal2[row - col + N - 1]:
-            continue
-        columns[col] = diagonal1[row + col] = diagonal2[row - col + N - 1] = 1
-        n_queens(row + 1)
-        columns[col] = diagonal1[row + col] = diagonal2[row - col + N - 1] = 0
-
-n_queens(0)
-print(result)
+    for col in range(n):
+        if v1[col]== v2[row+col] == v3[row-col]==0:
+            v1[col]= v2[row+col]=v3[row-col]=1
+            N_Queen(row+1)
+            v1[col]= v2[row+col]=v3[row-col]=0
+N_Queen(0)
+print(answer)
