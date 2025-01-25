@@ -1,38 +1,39 @@
 import sys
 from collections import deque
-input=sys.stdin.readline
-n,m,v=map(int,input().split())
-li=[[] for _ in range(n+1)]
+
+input = sys.stdin.readline
+n, m, v = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
 
 for i in range(m):
-    start,end=map(int,input().split())
-    li[start].append(end)
-    li[end].append(start) # 양방향 그래프이므로 반대 방향도 추가
+    u, w = map(int, input().split())
+    adj[u].append(w)
+    adj[w].append(u)
 
-def dfs(li,start,visited=None):
-    if visited is None:
-        visited=[0]*len(li)
-    visited[start]=1
-    print(start,end=' ') # 방문한 노드 출력
+dfs_visited = [0] * (n + 1)
+bfs_visited = [0] * (n + 1)
+dfs_print = []
+bfs_print = []
 
-    li[start].sort() # 방문 순서 오름차순으로
-    for i in li[start]:
-        if not visited[i]:
-            dfs(li,i,visited)
-            
-    
+def dfs(v):
+    if dfs_visited[v] == 0:
+        dfs_print.append(v)
+        dfs_visited[v] = 1
+        for i in adj[v]:
+            dfs(i)
 
-def bfs(li,start):
-    visited=[0]*len(li)
-    queue=deque([start])
-    while queue:
-        v=queue.popleft()
-        if visited[v]==0:
-            visited[v]=1
-            print(v,end=" ")
-            li[v].sort()
-            queue.extend(li[v])
+dfs(v)
 
-dfs(li,v)
-print()
-bfs(li,v)
+q = deque([v])
+bfs_visited[v] = 1
+
+while q:
+    v = q.popleft()
+    bfs_print.append(v)
+    for i in adj[v]:
+        if bfs_visited[i] == 0:
+            bfs_visited[i] = 1
+            q.append(i)
+
+print(*dfs_print)
+print(*bfs_print)
