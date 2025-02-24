@@ -16,12 +16,11 @@ def solution(book_time):
         new_start = arr[idx][0]
         tmp=[]
         
-        finished_time=heapq.heappop(heap)
-        if new_start >= finished_time:
-            heapq.heappush(heap,arr[idx][1])
+        if new_start >= heap[0]:
+            heapq.heappop(heap)
         else:
             answer+=1
-            heapq.heappush(heap,finished_time)
-            heapq.heappush(heap,arr[idx][1])
-        # answer = max(answer,len(heap))
+            
+        heapq.heappush(heap,arr[idx][1])
+
     return answer
