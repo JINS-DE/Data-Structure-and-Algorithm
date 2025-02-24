@@ -20,7 +20,8 @@ def solution(book_time):
         if new_start >= finished_time:
             heapq.heappush(heap,arr[idx][1])
         else:
+            answer+=1
             heapq.heappush(heap,finished_time)
             heapq.heappush(heap,arr[idx][1])
-        answer = max(answer,len(heap))
+        # answer = max(answer,len(heap))
     return answer
