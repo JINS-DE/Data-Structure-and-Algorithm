@@ -1,4 +1,4 @@
-def bfs():
+def find_melt_cheese():
     global n,m
     flag=True
     for i in range(n):
@@ -47,7 +47,7 @@ aircheck(0,0)
 
 while True:
     
-    if bfs():
+    if find_melt_cheese():
         print(answer)
         break
         
