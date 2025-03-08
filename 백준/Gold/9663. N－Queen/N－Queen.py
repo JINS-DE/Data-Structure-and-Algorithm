@@ -1,18 +1,18 @@
-def Nqueen(row):
+N=int(input())
+col_visited=[0]*N
+r_slice_visited = [0]*(2*N-1)
+l_slice_visited = [0]*(2*N-1)
+answer=0
+def dfs(row):
     global answer
-    if N==row:
+    if row == N:
         answer+=1
         return
-    
     for col in range(N):
-        if v1[col] == v2[row+col] == v3[row-col]==0:
-            v1[col]= v2[row+col]= v3[row-col]=1
-            Nqueen(row+1)
-            v1[col]= v2[row+col]= v3[row-col]=0
-answer=0
-N=int(input())
-v1 = [0]*N
-v2 = [0]*(2*N)
-v3 = [0]*(2*N)
-Nqueen(0)
+        if col_visited[col]==0 and r_slice_visited[row+col]==0 and l_slice_visited[row-col]==0:
+            col_visited[col]= r_slice_visited[row+col]=l_slice_visited[row-col]=1
+            dfs(row+1)
+            col_visited[col]= r_slice_visited[row+col]=l_slice_visited[row-col]=0
+dfs(0)
+
 print(answer)
