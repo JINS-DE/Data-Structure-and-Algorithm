@@ -1,16 +1,17 @@
 N,M = map(int,input().split())
 
 answer=[]
-def dfs(depth,lst,k):
-    if depth==M:
-        answer.append(lst)
+def dfs(n,lst):
+    if n == N+1:
+        if len(lst)==M:
+            answer.append(lst)
         return
-    for i in range(k,N+1):
-        dfs(depth+1,lst+[i],i+1)
+    dfs(n+1,lst+[n])
+    dfs(n+1,lst)
 
 
         
-dfs(0,[],1)
+dfs(1,[])
 
 for i in answer:
     print(*i)
