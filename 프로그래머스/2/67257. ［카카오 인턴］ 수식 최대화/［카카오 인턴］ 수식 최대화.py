@@ -1,41 +1,40 @@
 from itertools import permutations
-
 def solution(expression):
     answer = []
-    operator = {'-', '+', '*'}
-    st = ''
-    arr = []
-
-    # 수식 파싱
+    operator={'-','+','*'}
+    st=''
+    arr=[]
     for s in expression:
-        st += s
+        st+=s
         if s in operator:
-            arr.append(st[:-1])  # 숫자 추가
-            arr.append(st[-1])   # 연산자 추가
-            st = ''
-    arr.append(st)  # 마지막 숫자 추가
+            arr.append(int(st[:-1]))
+            arr.append(st[-1])
+            st=''
+    arr.append(int(st))
+    
 
-    for permu in permutations(operator, 3):  # 연산자 우선순위 순열 생성
-        li = arr[:]  # 리스트 깊은 복사 (얕은 복사 방지)
+    for permu in permutations(operator,3):      
+        li=arr[:]
         for op in permu:
-            new_li = []
-            i = 0
-            while i < len(li):
-                if li[i] == op:
-                    # 연산 수행
-                    num1 = int(new_li.pop())  # 이전 숫자
-                    num2 = int(li[i + 1])  # 다음 숫자
-                    if op == '+':
-                        new_li.append(str(num1 + num2))
-                    elif op == '-':
-                        new_li.append(str(num1 - num2))
-                    else:  # '*'
-                        new_li.append(str(num1 * num2))
-                    i += 1  # 다음 숫자 스킵
+            new_li=[]
+            cnt=0
+            while cnt<len(li):
+                if li[cnt]==op:
+                    a=new_li.pop()
+                    b=li[cnt+1]
+                    if op=='+':
+                        new_li.append(a+b)
+                    elif op =='-':
+                        new_li.append(a-b)
+                    elif op == '*':
+                        new_li.append(a*b)
+                    cnt+=1
                 else:
-                    new_li.append(li[i])
-                i += 1
-            li = new_li  # 업데이트된 리스트 반영
+                    new_li.append(li[cnt])
+                cnt+=1
+                print(li)
+            li = new_li
+            print(li)
         answer.append(abs(int(li[0])))
-
+        print(answer)
     return max(answer)
