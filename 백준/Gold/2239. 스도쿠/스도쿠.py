@@ -1,37 +1,46 @@
-arr = [] 
+import sys
+input = sys.stdin.readline
+board=[]
 for _ in range(9):
-    arr.append(list(map(int,input().strip())))
+    board.append(list(map(int,input().strip())))
 
 zero_li = []
 for i in range(9):
     for j in range(9):
-        if arr[i][j]==0:
+        if board[i][j]==0:
             zero_li.append((i,j))
-def is_possible(r,c,num):
+
+def is_right(r,c,num):
     for i in range(9):
-        if arr[r][i]==num:
+        if board[i][c]==num:
             return False
-        if arr[i][c]==num:
+        if board[r][i]==num:
             return False
-    nr = (r//3)*3
-    nc = (c//3)*3
-
-    for dr in range(3):
-        for dc in range(3):
-            if arr[nr+dr][nc+dc] == num:
+    r=(r//3)*3
+    c=(c//3)*3
+    for i in range(3):
+        for j in range(3):
+            if board[r+i][c+j]==num:
                 return False
-    return True
-    
-def dfs(idx):
-    if idx == len(zero_li):
-        for row in arr:
-            print(*row,sep='')
-        exit(0)
 
-    r,c = zero_li[idx]
+    return True
+
+def dfs(idx):
+    
+    if idx == len(zero_li):
+        for i in board:
+            print(*i,sep="")
+        sys.exit(0)
+
+    r,c=zero_li[idx]
+
     for i in range(1,10):
-        if is_possible(r,c,i):
-            arr[r][c] = i
+        
+        if is_right(r,c,i):
+            board[r][c]=i
             dfs(idx+1)
-            arr[r][c] = 0
+            board[r][c]=0
+            
+            
+
 dfs(0)
