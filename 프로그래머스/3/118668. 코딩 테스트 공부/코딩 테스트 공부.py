@@ -1,25 +1,25 @@
 def solution(alp, cop, problems):
-    max_alp,max_cop=0,0
+    INF = int(1e9)
+    MAX_ALP, MAX_COP = 0,0
     for problem in problems:
-        max_alp=max(max_alp,problem[0])
-        max_cop=max(max_cop,problem[1])
+        MAX_ALP = max(problem[0],MAX_ALP)
+        MAX_COP = max(problem[1],MAX_COP)
     
-    dp = [[10e9]*(max_cop+1) for _ in range(max_alp+1)]
-    alp=min(alp,max_alp)
-    cop=min(cop,max_cop)
-    dp[alp][cop]=0
+    dp = [[INF]*(MAX_COP+1) for _ in range(MAX_ALP+1)]
+    alp = min(MAX_ALP,alp)
+    cop = min(MAX_COP,cop)
+    dp[alp][cop] = 0
     
-    for algo in range(alp,max_alp+1):
-        for code in range(cop,max_cop+1):
-            if algo < max_alp:
-                dp[algo+1][code]=min(dp[algo+1][code],dp[algo][code]+1)
-            if code < max_cop:
-                dp[algo][code+1]=min(dp[algo][code+1],dp[algo][code]+1)
+    for al in range(alp,MAX_ALP+1):
+        for co in range(cop,MAX_COP+1):
+            if al < MAX_ALP:
+                dp[al+1][co] = min(dp[al][co]+1,dp[al+1][co])
+            if co < MAX_COP:                
+                dp[al][co+1] = min(dp[al][co]+1,dp[al][co+1])
             
-            for alp_req, cop_req, alp_rwd, cop_rwd, cost in problems:
-                if algo>= alp_req and code>=cop_req:
-                    next_alp = min(algo+alp_rwd, max_alp)
-                    next_cop = min(code+cop_rwd, max_cop)
-                    dp[next_alp][next_cop] = min(dp[algo][code]+cost,dp[next_alp][next_cop])
-    
-    return dp[max_alp][max_cop]
+            for alp_req,cop_req, alp_rwd, cop_rwd, cost in problems:
+                if al>=alp_req and co>=cop_req:
+                    new_al = min(al+alp_rwd,MAX_ALP)
+                    new_co = min(co+cop_rwd,MAX_COP)
+                    dp[new_al][new_co] = min(dp[al][co]+cost, dp[new_al][new_co])
+    return dp[MAX_ALP][MAX_COP]
