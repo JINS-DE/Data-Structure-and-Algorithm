@@ -1,6 +1,5 @@
 def solution(routes):
     routes.sort(key=lambda x : x[1])
-    print(routes)
     answer=1
     start=routes[0][0]
     end=routes[0][1]
