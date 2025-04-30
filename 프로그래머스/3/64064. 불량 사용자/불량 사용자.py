@@ -14,8 +14,8 @@ def solution(user_id, banned_id):
 
     def dfs(depth, path, used):
         if depth == ban_size:
-            # frozenset을 써서 순서 상관없는 조합으로 중복 제거
-            answer_set.add(frozenset(path))
+            path.sort()
+            answer_set.add(tuple(path))
             return
         for i in range(user_size):
             if not used[i] and check(user_id[i], banned_id[depth]):
