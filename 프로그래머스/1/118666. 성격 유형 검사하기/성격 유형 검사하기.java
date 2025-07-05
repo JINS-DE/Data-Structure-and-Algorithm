@@ -34,10 +34,10 @@ class Solution {
             String key1 = Character.toString(survey[i].charAt(1));
             if (checkedScoreIndex<4){
                 personality.put(key0, personality.getOrDefault(key0, 0) + standardScore[checkedScoreIndex]);
-                personality.putIfAbsent(key1, 0);
+                // personality.putIfAbsent(key1, 0);
             } else {
                 personality.put(key1,personality.getOrDefault(key1,0)+standardScore[checkedScoreIndex]);
-                personality.putIfAbsent(key0, 0);
+                // personality.putIfAbsent(key0, 0);
             }
         }
         
