@@ -1,18 +1,14 @@
-import sys
+import sys, math
 input = sys.stdin.readline
 
 n=int(input())
 
-idx=2
-answer=[]
-while n>1:
-    for i in range(idx,n+1):
-        if n%i==0:
-            idx=i
-            n//=i
-            answer.append(i)
-            break
+i=2
+while i <= math.sqrt(n):
+    while n%i==0:
+        print(i)
+        n//=i
+    i+=1
 
-answer.sort()
-for a in answer:
-    print(a)
+if n>1:
+    print(n)
