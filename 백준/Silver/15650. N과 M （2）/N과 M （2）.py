@@ -1,17 +1,13 @@
-N,M = map(int,input().split())
+import sys
+input = sys.stdin.readline
+N, M = map(int,input().split())
 
-answer=[]
-def dfs(n,lst):
-    if n == N+1:
-        if len(lst)==M:
-            answer.append(lst)
+def dfs(depth,idx,lst):
+    if depth==M:
+        print(" ".join(map(str,lst)))
         return
-    dfs(n+1,lst+[n])
-    dfs(n+1,lst)
-
-
-        
-dfs(1,[])
-
-for i in answer:
-    print(*i)
+    
+    for i in range(idx,N+1):
+        dfs(depth+1,i+1,lst+[i])
+    
+dfs(0,1,[])
