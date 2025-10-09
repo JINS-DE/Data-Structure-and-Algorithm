@@ -1,17 +1,25 @@
+"""
+전체날짜를 일수로 통합
+파기 : TODAY > 계약일 + 유효기간 -1 
+"""
+
 def solution(today, terms, privacies):
-    y,m,d = map(int,today.split('.'))
-    today = y*12*28+m*28+d # 오늘 날짜 day로 표현
-
-    terms = {i[:1] : int(i[2:])*28 for i in terms} # terms day로 dic형태로 변환
-
-    answer=[]
-    for index,p in enumerate(privacies):
-        y,m,d=p.split('.')
-        d,c = d.split()
-
-        p=int(y)*12*28+int(m)*28+int(d)
-
-        if today >= p+terms[c] :
-            answer.append(index+1)
+    answer = []
+    terms_dic = {}
     
+    y,m,d = today.split('.')
+    today = int(y[2:])*12*28 + int(m)*28 + int(d)
+    
+    for term in terms:
+        rule, deadline = term.split()
+        terms_dic[rule] = int(deadline)*28
+    
+    answer=[]
+    for i, privacy in enumerate(privacies):
+        date, rule = privacy.split()
+        y, m ,d = date.split('.')
+        deadline = int(y[2:])*12*28 + int(m)*28 + int(d) + terms_dic[rule] -1
+        if today > deadline:
+            answer.append(i+1)
+            
     return answer
