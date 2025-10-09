@@ -17,13 +17,16 @@ def solution(numbers):
     def is_binary_search(binary):
         length = len(binary)
         mid = length//2
-        if not binary or length==1 or '1' not in binary or '0' not in binary:
+        if not binary or length==1 or '1' not in binary:
             return True
-        
+        left_subtree = binary[:mid]
+        right_subtree = binary[mid+1:]
+        # root가 0인 경우
         if binary[mid]=='0':
-            return False
+            if '1' in left_subtree or '1' in right_subtree:
+                return False
         
-        return is_binary_search(binary[:mid]) and is_binary_search(binary[mid+1:])
+        return is_binary_search(left_subtree) and is_binary_search(right_subtree)
     
     answer = []
     for num in numbers:
