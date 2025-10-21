@@ -1,22 +1,17 @@
 import sys
 input = sys.stdin.readline
-n = int(input())
-arr=[]
-dp=[]
-for i in range(n):
-    arr.append(list(map(int,input().split())))
-    dp.append([0]*(i+1))
-
-dp[0][0] = arr[0][0]
-
-for i in range(1,n):
-    for j in range(i+1):
-        if j==0:
-            dp[i][j] = dp[i-1][j] + arr[i][j]
-        elif j==i:
-            dp[i][j] = dp[i-1][-1] + arr[i][j]
+n= int(input())
+arr = [int(input())]
+for _ in range(n-1):
+    inp = list(map(int,input().split()))
+    inp[0] += arr[0]
+    i=1
+    while i < len(inp):
+        if i==len(inp)-1:
+            inp[i]+=arr[-1]
         else:
-            dp[i][j] = max(dp[i-1][j-1]+arr[i][j], dp[i-1][j]+arr[i][j])
-
-print(max(dp[-1]))        
-        
+            inp[i] += max(arr[i-1],arr[i])
+        i+=1
+    
+    arr = inp
+print(max(arr))
