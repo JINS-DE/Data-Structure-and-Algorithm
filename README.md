@@ -114,6 +114,7 @@
 ### 🚀 Silver
 | 문제번호 | 링크 |
 | ----- | ----- |
+|10158. 개미|[링크](./%EB%B0%B1%EC%A4%80/Silver/10158.%E2%80%85%EA%B0%9C%EB%AF%B8/README.md)|
 |10431. 줄세우기|[링크](./%EB%B0%B1%EC%A4%80/Silver/10431.%E2%80%85%EC%A4%84%EC%84%B8%EC%9A%B0%EA%B8%B0/README.md)|
 |10451. 순열 사이클|[링크](./%EB%B0%B1%EC%A4%80/Silver/10451.%E2%80%85%EC%88%9C%EC%97%B4%E2%80%85%EC%82%AC%EC%9D%B4%ED%81%B4/README.md)|
 |1065. 한수|[링크](./%EB%B0%B1%EC%A4%80/Silver/1065.%E2%80%85%ED%95%9C%EC%88%98/README.md)|
