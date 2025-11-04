@@ -5,21 +5,20 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         Set<Integer> hash = new HashSet<>();
+
         int n = Integer.parseInt(br.readLine());
-        String[] st = br.readLine().split(" ");
+        int[] arr = Arrays.stream(br.readLine().split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
         int x = Integer.parseInt(br.readLine());
-        
+
         int ans = 0;
-        for (String s : st) {
-            int elem = Integer.parseInt(s);
-            if (hash.contains(elem)) {
-                hash.add(x - elem);
-                ans++;
-            } else {
-                hash.add(x - elem);
-            }
+        for (int num:arr){
+            if (hash.contains(x-num)) ans++;
+            hash.add(num);
         }
-        System.out.println(ans);
+        bw.write(String.valueOf(ans));
+        bw.flush();
 
     }
 }
