@@ -7,21 +7,27 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
-        Set<String> set = new HashSet<>();
-        for (int i=0;i<N;i++){
-            set.add(br.readLine());
-        }
-        String[] arr = set.toArray(new String[0]);
+        String[] words = new String[N];
 
-        Arrays.sort(arr,(o1,o2)-> {
-            if (o1.length() == o2.length()) return o1.compareTo(o2);
-            return o1.length()-o2.length();
+        for (int i=0; i<N; i++){
+            words[i] = br.readLine();
+        }
+
+        Arrays.sort(words, new Comparator<String>(){
+            @Override
+            public int compare(String s1, String s2){
+                if (s1.length() == s2.length()) return s1.compareTo(s2);
+                return s1.length() - s2.length();
+            }
         });
 
-        for (String st : arr){
-            bw.write(st+"\n");
+        bw.write(words[0]+"\n");
+        for (int i=1;i<N;i++){
+            if (!words[i-1].equals(words[i])){
+                bw.write(words[i]+"\n");
+            }
         }
-        bw.flush();
 
+        bw.flush();
     }
 }
