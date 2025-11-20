@@ -1,60 +1,66 @@
-
 import java.util.*;
+import java.io.*;
 
-public class Main {
-
+public class Main{
     static int N,M,V;
-    static List<List<Integer>> graph;
     static boolean[] visited;
+    static List<List<Integer>> adj;
+    static BufferedWriter bw;
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        M = sc.nextInt();
-        V = sc.nextInt();
-        graph = new ArrayList<>();
-        for (int i=0;i<=N;i++){
-            graph.add(new ArrayList<>());
+        String[] input = br.readLine().split(" ");
+        N = Integer.parseInt(input[0]);
+        M = Integer.parseInt(input[1]);
+        V = Integer.parseInt(input[2]);
+
+        adj = new ArrayList<>();
+        for (int i=0;i<N+1;i++){
+            adj.add(new ArrayList<>());
         }
-
+        StringTokenizer st;
         for (int i=0;i<M;i++){
-            int u = sc.nextInt();
-            int v = sc.nextInt();
-            graph.get(u).add(v);
-            graph.get(v).add(u);
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            adj.get(a).add(b);
+            adj.get(b).add(a);
         }
 
         for (int i=1;i<=N;i++){
-            Collections.sort(graph.get(i));
+            Collections.sort(adj.get(i));
         }
+
         visited = new boolean[N+1];
         dfs(V);
-        System.out.println();
+        bw.newLine();
         visited = new boolean[N+1];
         bfs(V);
+        bw.flush();
     }
-    static void dfs(int node) {
-        System.out.print(node + " ");
+
+    static void dfs(int node) throws IOException{
+        bw.write(node+" ");
         visited[node] = true;
-        for (int nextNode : graph.get(node)) {
-            if (!visited[nextNode]) {
+        for (int nextNode : adj.get(node)){
+            if (!visited[nextNode]){
                 dfs(nextNode);
             }
         }
     }
     static Queue<Integer> q;
-    static void bfs(int node){
+    static void bfs(int node) throws IOException{
         q = new LinkedList<>();
         q.offer(node);
-        visited[node] = true;
-
+        visited[node]=true;
         while (!q.isEmpty()){
             int now = q.poll();
-            System.out.print(now+" ");
-            for (int nextNode:graph.get(now)){
+            bw.write(now+" ");
+            for (int nextNode : adj.get(now)){
                 if (!visited[nextNode]){
-                    q.offer(nextNode);
                     visited[nextNode]=true;
+                    q.offer(nextNode);
                 }
             }
         }
