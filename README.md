@@ -120,6 +120,7 @@
 ### 🚀 Silver
 | 문제번호 | 링크 |
 | ----- | ----- |
+|1015. 수열 정렬|[링크](./%EB%B0%B1%EC%A4%80/Silver/1015.%E2%80%85%EC%88%98%EC%97%B4%E2%80%85%EC%A0%95%EB%A0%AC/README.md)|
 |10158. 개미|[링크](./%EB%B0%B1%EC%A4%80/Silver/10158.%E2%80%85%EA%B0%9C%EB%AF%B8/README.md)|
 |10431. 줄세우기|[링크](./%EB%B0%B1%EC%A4%80/Silver/10431.%E2%80%85%EC%A4%84%EC%84%B8%EC%9A%B0%EA%B8%B0/README.md)|
 |10451. 순열 사이클|[링크](./%EB%B0%B1%EC%A4%80/Silver/10451.%E2%80%85%EC%88%9C%EC%97%B4%E2%80%85%EC%82%AC%EC%9D%B4%ED%81%B4/README.md)|
