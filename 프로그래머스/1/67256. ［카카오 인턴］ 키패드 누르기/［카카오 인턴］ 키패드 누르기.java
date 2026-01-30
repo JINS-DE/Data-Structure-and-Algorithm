@@ -1,60 +1,57 @@
-import java.util.*;
+/*
+1. 1,4,7 일 때 Left 추가, 3,6,9일 때 Right 추가 후 바뀐 손가락 위치 업데이트
+2. 그 외에는 가까운 손가락
+2-1. 현재 keypad의 위치와 left와 right 위치를 비교한다.
+2-2. 가까운 손가락 result 추가후, 변경 손가락 위치 업데이트
+
+변수 : isLeft - 왼손잡이인가? / leftPos, rigthPos - 왼손,오른손 엄지 현위치 / lDist, rDist 왼,오른 거리
+getPos 함수 : 현재 좌표 위치 반환
+dist 함수 : 멘헤튼 거리 반환
+*/
+
 class Solution {
-    static Map<Integer,int[]> keypad;
-    static int leftPosition;
-    static int rightPosition;
-    static boolean direct; // 왼손잡이 true, 오른손잡이 false
-    
     public String solution(int[] numbers, String hand) {
-        // 초기화
-        direct = hand.equals("left") ? true : false;
-        
-        keypad = new HashMap<>();
-        int key = 1;
-        for (int i=0;i<4;i++){
-            for(int j=0;j<3;j++){
-                keypad.put(key++,new int[]{i,j});
-            }
-        }
-        keypad.put(0,new int[]{3,1});
-        leftPosition = 10;
-        rightPosition = 12;
-        
-        Set<Integer> onlyLeft = new HashSet<>(Arrays.asList(1,4,7));
-        Set<Integer> onlyRight = new HashSet<>(Arrays.asList(3,6,9));
+        boolean isLeft = hand.equals("left");
         StringBuilder result = new StringBuilder();
+        int[] leftPos = new int[]{3,0};
+        int[] rightPos = new int[]{3,2};
         
-        for (int number : numbers){
-            if (onlyLeft.contains(number)){
-                result.append('L');
-            } else if(onlyRight.contains(number)){
-                result.append('R');
+        for (int num : numbers){
+            if (num==1 || num==4 || num ==7){
+                result.append("L");
+                leftPos = getPos(num);
+            } else if( num==3 || num==6 || num==9){
+                result.append("R");
+                rightPos = getPos(num);
             } else{
-                int distLeft;
-                int distRight;
-                distLeft = Math.abs(keypad.get(number)[0]-keypad.get(leftPosition)[0]) + 
-                    Math.abs(keypad.get(number)[1]-keypad.get(leftPosition)[1]);
-                
-                distRight = Math.abs(keypad.get(number)[0]-keypad.get(rightPosition)[0]) + 
-                    Math.abs(keypad.get(number)[1]-keypad.get(rightPosition)[1]);
-                
-                if (distLeft-distRight > 0){
+                int[] target = getPos(num);
+                int lDist = dist(leftPos,target);
+                int rDist = dist(rightPos,target);
+                if (lDist>rDist){
                     result.append("R");
-                } else if (distLeft-distRight < 0){
+                    rightPos = target;
+                } else if (lDist<rDist){
                     result.append("L");
+                    leftPos = target;
                 } else{
-                    result.append(direct ? "L" : "R");
+                    if (isLeft){
+                        result.append("L");
+                        leftPos = target;
+                    } else{
+                        result.append("R");
+                        rightPos = target;
+                    }
                 }
             }
-            // 이동
-            if (result.charAt(result.length()-1) == 'L'){
-                leftPosition = number;
-            } else{
-                rightPosition = number;
-            }
         }
-        
         return result.toString();
     }
     
+    private int[] getPos(int n){
+        if (n==0) return new int[]{3,1};
+        return new int[]{(n-1)/3,(n-1)%3};
+    }
+    private int dist(int[] a, int[] b){
+        return Math.abs(a[0]-b[0]) + Math.abs(a[1]-b[1]);
+    }
 }
