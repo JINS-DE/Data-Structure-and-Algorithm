@@ -13,15 +13,7 @@ class Solution {
         return answer;
     }
     static void first(){
-        sb = new StringBuilder();
-        for (char c : answer.toCharArray()){
-            if (Character.isUpperCase(c)){
-                sb.append(Character.toLowerCase(c));
-            } else{
-                sb.append(c);
-            }
-        }
-        answer = sb.toString();
+        answer = answer.toLowerCase();
     }
     
     static void second(){
@@ -35,21 +27,9 @@ class Solution {
     }
     
     static void third(){
-        sb = new StringBuilder();
-        int cnt = 0;
-        for (char c : answer.toCharArray()){
-            if (c=='.'){
-                cnt+=1;
-            } else {
-                if (cnt>0) {
-                    sb.append('.');
-                    cnt=0;
-                }
-                sb.append(c);
-            }
+        while(answer.indexOf("..")!=-1){
+            answer = answer.replace("..",".");
         }
-        if (cnt>0 && answer.length()>0 && answer.charAt(answer.length()-1)=='.') sb.append('.');
-        answer=sb.toString();
     }
     
     static void fourth(){
