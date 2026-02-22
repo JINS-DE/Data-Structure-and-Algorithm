@@ -15,52 +15,33 @@ class Solution {
     static void first(){
         answer = answer.toLowerCase();
     }
-    
     static void second(){
-        sb = new StringBuilder();
-        for (char c : answer.toCharArray()){
-            if (Character.isLowerCase(c) || Character.isDigit(c) || c=='-' || c=='_' || c=='.'){
-                sb.append(c);
-            }
-        }
-        answer = sb.toString();
+        answer = answer.replaceAll("[^a-z0-9_.-]","");
     }
-    
     static void third(){
-        while(answer.indexOf("..")!=-1){
-            answer = answer.replace("..",".");
+        answer = answer.replaceAll("\\.+",".");
+    }
+    static void fourth(){
+        answer = answer.replaceAll("^[.]|[.]$","");
+    }
+    static void fifth(){
+        if (answer.length() == 0){
+            answer = "a";
         }
     }
-    
-    static void fourth(){
-        
-        sb = new StringBuilder(answer);
-        if (sb.charAt(0)=='.') sb.deleteCharAt(0);
-        if (sb.length()>0 && sb.charAt(sb.length()-1)=='.') sb.deleteCharAt(sb.length()-1);
-        answer = sb.toString();
-    }
-    
-    static void fifth(){
-        if (answer.length()==0) answer="a";
-    }
-    
     static void sixth(){
         if (answer.length()>15){
             answer = answer.substring(0,15);
         }
-        
-        if (answer.charAt(answer.length()-1) == '.'){
-            answer = answer.substring(0,14);
-        }
+        answer = answer.replaceAll("\\.$","");
     }
-    
     static void seventh(){
-        sb = new StringBuilder(answer);
-        while (sb.length() <3){
-            sb.append(answer.charAt(answer.length()-1));
-        } 
-        answer = sb.toString();
-        
+        int strSize = answer.length();
+        char lastChar = answer.charAt(strSize-1);
+        while (strSize<3){
+            answer += lastChar;
+            strSize = answer.length();
+        }
     }
     
 }
