@@ -1,49 +1,62 @@
 /*
+신고 당한 횟수 관리
+HashMap<String,Integer> reportedCount = new HashMap<>();
 
-- Map<String,Integer> countReported : hashMap으로 각 아이디마다 신고 받은 횟수 관리
-- countReported를 순회하면서 k이상 인애들 찾기
+내가 신고한 사람들 목록 관리
+HashMap<String,Set<String>> reportList = new HashMap<>();
 
+정지당한유저 목록
+List<String> stopUserList = new ArrayList<>();
 */
+
 import java.util.*;
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
-        Map<String,Set<String>> reportList = new HashMap<>();
-        for (String id : id_list){
-            reportList.put(id,new HashSet<>());
-        }
-        
-        
-        Map<String,Integer> countReported = new HashMap<>();
-        StringTokenizer st;
-        for (String names : report){
-            st = new StringTokenizer(names);
-            String reporter = st.nextToken();
-            String reported = st.nextToken();
+        // 0. 초기화 
+        int n = id_list.length;
+        int[] answer = new int[n];
+        HashMap<String,Integer> reportedCount = new HashMap<>();
+        HashMap<String,Set<String>> reportList = new HashMap<>();
+        List<String> stopUserList = new ArrayList<>();
+        // 1. report 순회, reportedCount, reportList 주입
+        for (String reportUser : report){
+            String[] user = reportUser.split(" ");
+            String reporter = user[0];
+            String reported = user[1];
+            
+            // 내가 신고한 목록 reportList
+            var set = reportList.get(reporter);
+            if (set==null) {
+                set = new HashSet<>();
+                reportList.put(reporter,set);
+                };
+            
             if (!reportList.get(reporter).contains(reported)){
-                countReported.put(reported, countReported.getOrDefault(reported,0)+1);
-                reportList.get(reporter).add(reported);
+                reportedCount.put(reported,reportedCount.getOrDefault(reported,0)+1);    
+            }
+                    
+            set.add(reported);
+            // reportList.computeIfAbsent(reporter, k -> new HashSet<>()).add(reported);
+        }
+        // 2. id_list 순회, reportedCount 체크, 신고 당한 횟수 k 이상인 stopUserList 추가 
+        for (int i=0; i<n; i++) {
+            String user = id_list[i];
+            if (reportedCount.getOrDefault(user,0) >= k){
+                stopUserList.add(user);
             }
         }
         
-        List<String> arr = new ArrayList<>();
-        
-        for (String id: id_list){
-            if (countReported.getOrDefault(id,0) >= k){
-                arr.add(id);
+        // 3. id_list 순회 stopUserList count 세주고 answer에 count 추가
+        for (int i=0; i<n; i++){
+            String user = id_list[i];
+            Set<String> set = reportList.get(user);
+            if (set==null) continue;
+            int count = 0;
+            for (String stopUser:stopUserList){
+                if (set.contains(stopUser)) count++;
             }
+            answer[i] = count;
         }
-        
-        int[] answer = new int[id_list.length];
-        for (int i=0;i<id_list.length;i++) {
-            
-            for (String reported : arr){
-                if (reportList.get(id_list[i]).contains(reported)){
-                    answer[i]+=1;
-                }
-            }
-            
-        }
-        
         
         return answer;
     }
