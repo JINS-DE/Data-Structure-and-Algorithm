@@ -4,13 +4,9 @@ class Solution {
         String[] answer = new String[n];
         for (int i=0; i<n;i++){
             String binary = Integer.toBinaryString(arr1[i]|arr2[i]);
-            while (n > binary.length()){
-                binary = "0" + binary;
-            }
-            System.out.println(binary);
-            binary = binary.replace("1","#");
-            binary = binary.replace("0"," ");
-            answer[i] = binary;
+            String formatted = String.format("%"+n+"s",binary);
+            formatted = formatted.replace("1","#").replace("0"," ");
+            answer[i] = formatted;
         }
         
         
