@@ -5,7 +5,7 @@ public class Main {
     static int[][] land ;
     static int[][] A;
     static List<Tree> deadTrees = new ArrayList<>();
-    static List<Tree> trees = new ArrayList<>();
+    static Deque<Tree> trees = new ArrayDeque<>();
     public static void main(String[] args) throws IOException{
         input();
         // K년 순환
@@ -25,9 +25,10 @@ public class Main {
     - 땅에 양분이 부족하면 양분을 못 먹은 나무는 죽는다.
     * */
     static void spring(){
-        List<Tree> growthTrees = new ArrayList<>();
-        Collections.sort(trees);
-        for (Tree tree : trees){
+        Deque<Tree> growthTrees = new ArrayDeque<>();
+
+        while(!trees.isEmpty()){
+            Tree tree = trees.pollFirst();
             int x = tree.x;
             int y = tree.y;
             int age = tree.age;
@@ -35,7 +36,7 @@ public class Main {
             if (land[x][y] >= age){
                 land[x][y] -= age;
                 tree.age ++;
-                growthTrees.add(tree);
+                growthTrees.addLast(tree);
             } else{
                 tree.age/=2;
                 deadTrees.add(tree);
@@ -73,7 +74,7 @@ public class Main {
             for (int j=1;j<=N;j++){
                 int cnt = tmp[i][j];
                 for (int k=0; k<cnt;k++){
-                    trees.add(new Tree(i,j,1));
+                    trees.addFirst(new Tree(i,j,1));
                 }
             }
         }
@@ -105,12 +106,17 @@ public class Main {
             }
         }
 
+        List<Tree> tmpList = new ArrayList<>();
         for (int i=0;i<M;i++){
             String[] tmp = br.readLine().split(" ");
             int x = Integer.parseInt(tmp[0]);
             int y = Integer.parseInt(tmp[1]);
             int z = Integer.parseInt(tmp[2]);
-            trees.add(new Tree(x,y,z));
+            tmpList.add(new Tree(x,y,z));
+        }
+        Collections.sort(tmpList);
+        for (Tree tree : tmpList){
+            trees.addLast(tree);
         }
     }
 }
