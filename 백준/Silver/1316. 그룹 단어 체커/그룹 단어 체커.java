@@ -16,20 +16,15 @@ public class Main {
 
     static boolean isGroupWord(String word){
         Set<Character> set = new HashSet<>();
-        int len = word.length();
-        for (int i=0; i<len; i++){
-            char c = word.charAt(i);
-            if (set.contains(c)){
-                return false;
-            }
-            set.add(c);
-            while (i<len-1){
-                char nextChar = word.charAt(i+1);
-                if (c==nextChar){
-                    i++;
-                } else{
-                    break;
+        char prev = ' ';
+        for (int i=0; i<word.length();i++){
+            char now = word.charAt(i);
+            if (prev!=now){
+                if (set.contains(now)){
+                    return false;
                 }
+                set.add(now);
+                prev = now;
             }
         }
         return true;
