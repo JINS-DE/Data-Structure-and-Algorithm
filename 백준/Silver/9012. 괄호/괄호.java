@@ -1,5 +1,4 @@
 
-
 import java.io.*;
 import java.util.*;
 public class Main {
@@ -13,21 +12,15 @@ public class Main {
     }
 
     static boolean check(String st){
-        Deque<Character> stack = new ArrayDeque<>();
+        int count = 0;
         for (char c : st.toCharArray()){
             if (c=='('){
-                stack.push('(');
+                count++;
             } else{
-                if ( !stack.isEmpty() ){
-                    char popC = stack.pop();
-                    if (popC == ')'){
-                        return false;
-                    }
-                } else{
-                    return false;
-                }
+                if (count ==0) return false;
+                count--;
             }
         }
-        return stack.isEmpty();
+        return count==0;
     }
 }
