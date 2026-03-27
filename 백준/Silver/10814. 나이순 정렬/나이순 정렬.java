@@ -1,36 +1,30 @@
+
+import java.io.*;
 import java.util.*;
-
-class Main{
-    static class Member implements Comparable<Member>{
-        int age;
-        String name;
-        int idx;
-        Member(int age, String name, int idx){
-            this.age = age;
-            this.name = name;
-            this.idx = idx;
-        }
-
-        @Override
-        public int compareTo(Member o){
-            if (age != o.age)
-                return age-o.age;
-            return idx - o.idx;
-        }
-    }
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-
-        int  N = sc.nextInt();
+public class Main {
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         Member[] members = new Member[N];
         for (int i=0; i<N; i++){
-            members[i] = new Member(sc.nextInt(), sc.next(), i);
+            String[] arr = br.readLine().split(" ");
+            Member member = new Member(Integer.parseInt(arr[0]), arr[1]);
+            members[i] = member;
         }
-        Arrays.sort(members);
-
-        for (Member member : members){
-            System.out.println(member.age + " " + member.name);
+        Arrays.sort(members, (a,b) -> a.age-b.age);
+        for (int i=0; i<N; i++){
+            Member man = members[i];
+            System.out.println(man.age + " " + man.name);
         }
     }
+}
 
+class Member{
+    int age;
+    String name;
+
+    Member(int age, String name){
+        this.age = age;
+        this.name = name;
+    }
 }
