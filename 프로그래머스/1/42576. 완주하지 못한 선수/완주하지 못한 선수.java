@@ -1,15 +1,23 @@
 import java.util.*;
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        HashMap<String,Integer> hash = new HashMap<>();
-        for (String c : completion){
-            hash.put(c,hash.getOrDefault(c,0)+1);
-        }
+        Map<String,Integer> hash = new HashMap<>();
         for (String p : participant){
-            if (hash.get(p)==null || hash.get(p)<=0) return p;
-            hash.put(p,hash.get(p)-1);
+            hash.put(p,hash.getOrDefault(p,0) + 1);
         }
-        return "없음";
-        
+        for (String c : completion){
+            int cnt = hash.get(c);
+            cnt --;
+            if (cnt<=0){
+                hash.remove(c);
+            } else{
+                hash.put(c,cnt);
+            }
+        }
+        String answer="";
+        for (String s : hash.keySet()){
+            answer = s;
+        }
+        return answer;
     }
 }
