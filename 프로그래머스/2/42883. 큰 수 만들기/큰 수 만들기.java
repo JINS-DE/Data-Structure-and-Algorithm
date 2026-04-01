@@ -21,7 +21,7 @@ class Solution {
             k--;
         }
         
-        // 결과 만들기
+        // 결과
         StringBuilder result = new StringBuilder();
         for (char c : stack) {
             result.append(c);
