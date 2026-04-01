@@ -1,32 +1,19 @@
 import java.util.*;
-
 class Solution {
     public String solution(String number, int k) {
+        char[] result = new char[number.length() - k];
         Deque<Character> stack = new ArrayDeque<>();
-        
-        for (char current : number.toCharArray()) {
-            
-            // 앞에 작은 숫자 제거
-            while (!stack.isEmpty() && k > 0 && stack.peekLast() < current) {
-                stack.pollLast();
-                k--;
+
+        for (int i=0; i<number.length(); i++) {
+            char c = number.charAt(i);
+            while (!stack.isEmpty() && stack.peek() < c && k-- > 0) {
+                stack.pop();
             }
-            
-            stack.offerLast(current);
+            stack.push(c);
         }
-        
-        // k가 남아있으면 뒤에서 제거
-        while (k > 0) {
-            stack.pollLast();
-            k--;
+        for (int i=0; i<result.length; i++) {
+            result[i] = stack.pollLast();
         }
-        
-        // 결과
-        StringBuilder result = new StringBuilder();
-        for (char c : stack) {
-            result.append(c);
-        }
-        
-        return result.toString();
+        return new String(result);
     }
 }
