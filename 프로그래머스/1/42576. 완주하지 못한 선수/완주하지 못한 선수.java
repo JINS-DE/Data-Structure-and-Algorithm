@@ -12,9 +12,9 @@ class Solution {
         }
         
         // 3. count > 0 return
-        for (String name : hash.keySet()){
-            if (hash.get(name)>0){
-                return name;
+        for (Map.Entry<String,Integer> entry : hash.entrySet()){
+            if (entry.getValue() > 0){
+                return entry.getKey();
             }
         }
         return "";
