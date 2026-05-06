@@ -1,10 +1,14 @@
 import java.util.*;
 class Solution {
     public int solution(int[] nums) {
-        HashSet<Integer> set = new HashSet<>();
-        for (int n : nums){
-            set.add(n);
+        Set<Integer> pocket = new HashSet<>();
+        for (int num : nums){
+            pocket.add(num);
         }
-        return ((nums.length/2)<set.size())?nums.length/2:set.size();
+        
+        if (pocket.size() > nums.length / 2){
+            return nums.length/2;
+        }
+        return pocket.size();
     }
 }
