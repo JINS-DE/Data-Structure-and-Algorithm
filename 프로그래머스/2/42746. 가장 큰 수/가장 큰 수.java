@@ -1,26 +1,23 @@
 /*
-1. 숫자를 문자열 배열로 변환
-2. 정렬 : a+b, b+a 크기 비교
-3. 문자열 합치기
-4. "00", "000" 예외 처리 -> 0으로 시작하면 0
+전체가 0인 거 고려해야함. 
+
 */
 import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
-        // #1
-        String[] list = Arrays.stream(numbers)
-            .mapToObj(String::valueOf)
-            .toArray(String[]::new);
+       String[] nums = new String[numbers.length];
+        for (int i=0;i<numbers.length; i++){
+            nums[i] = String.valueOf(numbers[i]);
+        }
+        Arrays.sort(nums, (a,b)-> (b+a).compareTo(a+b));
+        if (nums[0].equals("0")) return "0";
         
-        // #2
-        Arrays.sort(list,(a,b)->((b+a).compareTo(a+b)));
-        
-        // #3
-        String answer = String.join("",list);
-        
-        // #4
-        if (answer.startsWith("0")) return "0";
-        
-        return answer;
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : nums) {
+            sb.append(s);
+        }
+
+        return sb.toString();
     }
 }
