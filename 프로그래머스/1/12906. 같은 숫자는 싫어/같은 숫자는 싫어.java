@@ -2,19 +2,17 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        int[] answer = {};
-        ArrayList<Integer> array = new ArrayList<>();
-        int tmp = arr[0];
-        array.add(tmp);
-        for (int i : arr){
-            if (i==tmp){
-                continue;
-            } else{
-                tmp = i;
-                array.add(tmp);
-            } 
+        List<Integer> li = new ArrayList<>();
+        int before = -1;
+        for (int n : arr){
+            if (n==before) continue;
+            li.add(n);
+            before = n;
         }
-        answer = array.stream().mapToInt(i->i).toArray();
+        int[] answer = new int[li.size()];
+        for (int i=0; i<li.size();i++){
+            answer[i] = li.get(i);
+        }
 
         return answer;
     }
