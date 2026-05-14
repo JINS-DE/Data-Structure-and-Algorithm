@@ -1,62 +1,64 @@
 /*
-# 여기서 배운 java 문법
-- hash
-    .computeIfAbsent('key', k->new ArrayList<>())
-    .add()
-- map.entrySet()는 파이썬에서 dic.items()랑 같음
-- map.Entry<type,type> -> key : value  나타내기
-
-# 자료구조 : 해쉬
-- 장르별 총 재생횟수 저장 해쉬  Map<String,Integer>
-- 장르별 각 재생횟수 리스트 해쉬 Map<String,ArrayList<int[]>> -> 재생 횟수 뿐만 아니라 고유번호도 저장해야함
-
-# 로직 흐름
-1. 각 해쉬들 정보 넣기
-2. totalPlayHash value 크기 별로 내림차순 정렬
-3. 정렬된 totalPlayHash에서 순서대로 key를 뽑고 key를 통해 playListHash의 value를 정렬한다.
-4. 해당 ArrayList 정렬 0번째 : index, 1번째 : 크기 -> 크기 별로 정렬, 다음 index 오름차순  
+1순위 : 재생의 합이 가장 큰 장르부터 
+2순위 : 장르에서 많이 재생된 노래
+        - 재생 횟수가 같으면 고유 번호가 낮은 노래가 우선 순위
+        
+출력 : 베스트 노래의 고유 번호 순대로 배열 출력
 */
+
 import java.util.*;
 class Solution {
     public int[] solution(String[] genres, int[] plays) {
-        int[] answer = {};
-        Map<String,Integer> totalPlayHash = new HashMap<>();
-        Map<String, ArrayList<int[]>> playListHash = new HashMap<>();
+        // 0-1. 2개의 해쉬 선언 ("장르": "총 재생수", "장르":"index 목록" )
+        Map<String, Integer> playCount = new HashMap<>();
+        Map<String, List<Integer>> genrePK = new HashMap<>();
+        // 0-2. genreNames : 장르의 이름들 모음 list 선언
+        List<String> genreNames = new ArrayList<>();
+        // 0-3. answer 선언
+        List<Integer> answer = new ArrayList<>();
         
+        // 0-4. 데이터 입력
         for (int i=0; i<genres.length;i++){
-            totalPlayHash
-                .put(genres[i],totalPlayHash.getOrDefault(genres[i],0)+plays[i]);
+            String genre = genres[i];
+            Integer cnt = plays[i];
+            // 총 재생수 갱신
+            playCount.put(genre, playCount.getOrDefault(genre,0) + cnt);
             
-            playListHash
-                .computeIfAbsent(genres[i], k -> new ArrayList<>())
-                .add(new int[]{i, plays[i]});
+            // index 추가 
+            List<Integer> indexList;
+            if(genrePK.get(genre)==null){
+                indexList = new ArrayList<>();
+            } else{
+                indexList = genrePK.get(genre);
+            };
+            indexList.add(i);
+            genrePK.put(genre,indexList);
         }
         
-        List<Map.Entry<String,Integer>> list = new ArrayList<>(totalPlayHash.entrySet());
+        // 1. 장르 총 재생수 별로 장르 정렬 
+        // 1-1. genreNames 초기화
+        for (String name : playCount.keySet()){
+            genreNames.add(name);
+        }
         
-        list.sort((a,b)->b.getValue() - a.getValue());
-          
-        List<Integer> answerList = new ArrayList<>();
-    
-         for (Map.Entry<String, Integer> dic : list) {
-            String genre = dic.getKey();
-            ArrayList<int[]> songs = playListHash.get(genre);
-
-            // 곡 정렬: 재생수 ↓, 인덱스 ↑
-            songs.sort((a, b) -> {
-                if (b[1] != a[1]) return b[1] - a[1];
-                return a[0] - b[0];
-            });
-
-            // 1등 곡 추가
-            answerList.add(songs.get(0)[0]);
-
-            // 2등 곡 있으면 추가
-            if (songs.size() >= 2) {
-                answerList.add(songs.get(1)[0]);
+        // 1-2. genreNames 각 장르별 총 재생수로 이름 정렬 
+        Collections.sort(genreNames,(o1,o2)->playCount.get(o2) - playCount.get(o1));
+        
+        // 2. genreNames 순회하면서 "장르":"index 목록"해쉬의 index 목록 정렬 후 앞에 두 개만 가져와서 answer 추가
+        for (String genre : genreNames){
+            List<Integer> arr = genrePK.get(genre);
+            Collections.sort(arr,(o1,o2)->plays[o2] - plays[o1]);
+            for (int i=0 ; i < ((arr.size()<2)?1:2); i++){
+                answer.add(arr.get(i));
             }
         }
         
-        return  answerList.stream().mapToInt(i -> i).toArray();
+        // 3. answer (ArrayList -> int[] )
+        int[] result = new int[answer.size()];
+        for (int i=0; i<answer.size();i++){
+            result[i] = answer.get(i);
+        }
+        
+        return result;
     }
 }
