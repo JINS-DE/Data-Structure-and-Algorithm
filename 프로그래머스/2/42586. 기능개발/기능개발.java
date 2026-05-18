@@ -1,36 +1,36 @@
-/*
-풀이
-1. 각 남은 일 수를 각 배포 우선순위 대로 맞게 remindDayList 데이터 넣어줌.
-- 나머지가 있으면 -> 몫+1 없으면 몫
-
-2. beforeRemindDay=remindDayList[0], count=1 초기화
-3. remindDayList 순차적으로 for 문을 돌면서 beforeRemindDay보다 크면 큰 숫자로 초기화 시켜주고 count answer에 추가, 더 큰 숫자 나올때 까지 count에 세어준다. 
-*/
 import java.util.*;
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int deploySize = progresses.length;
-        int[] remindDayList = new int[deploySize];
-        ArrayList<Integer> answer = new ArrayList<>();
-        
-        for (int i=0; i < deploySize; i++){
-            remindDayList[i] = ((100-progresses[i]) % speeds[i])>0 ? ((100-progresses[i]) / speeds[i])+1 : (100-progresses[i]) / speeds[i];
-        }
-        
-        int beforeRemindDay = remindDayList[0];
-        int count = 1;
-        int lastIndex = 0;
-        for (int i=1;i<deploySize;i++){
-            if (remindDayList[i]>beforeRemindDay){
-                beforeRemindDay=remindDayList[i];
-                answer.add(count);
-                count=1;
-                lastIndex=i;
-            } else {
-                count+=1;
+        // 1. 완성까지 남은 일수 계산 배열(d_day) 만들기
+        int[] d_day = new int[progresses.length];
+        for (int i = 0 ; i < progresses.length; i++){
+            int day = 100 - progresses[i];
+            if (day%speeds[i]==0){
+                d_day[i] = day/speeds[i];
+            } else{
+                d_day[i] = day/speeds[i]+1;
             }
         }
-        answer.add(deploySize-lastIndex);
-        return answer.stream().mapToInt(i->i).toArray();
+        
+        // 2. d_day 순회
+        int progressingIndex = 0;
+        List<Integer> answer = new ArrayList<>();
+        for (int i=1; i<d_day.length; i++){
+            if (d_day[i] > d_day[progressingIndex]){
+                answer.add(i-progressingIndex);
+                progressingIndex = i;
+            }
+        }
+        // 3. 계산 안된 거 확인 
+        if (progressingIndex < d_day.length){
+            answer.add(d_day.length-progressingIndex);
+        }
+        // 4. answer -> int[]
+        int[] answerArr = new int[answer.size()];
+        for (int i=0; i<answerArr.length;i++){
+            answerArr[i] = answer.get(i);
+        }
+        
+        return answerArr;
     }
 }
