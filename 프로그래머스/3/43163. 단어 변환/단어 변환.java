@@ -1,21 +1,26 @@
 import java.util.*;
 class Solution {
     public int solution(String begin, String target, String[] words) {
+        if (!Arrays.asList(words).contains(target)) return 0;
         int answer = 0;
         boolean[] visited = new boolean[words.length];
-        Queue<int[]> q = new LinkedList<>();
-        offerQ(q,begin,words,visited,0);
-        while (!q.isEmpty()){
-            int[] arr = q.poll();
-            String word = words[arr[0]];
-            int depth = arr[1];
-            if (word.equals(target)){
-                answer = depth;
-                break;
-            }
-            offerQ(q,word,words,visited,depth);
-        }
+        Queue<String[]> q = new LinkedList<>();
+        q.offer(new String[]{begin,"0"});
         
+        while (!q.isEmpty()){
+            String[] arr = q.poll();
+            String word = arr[0];
+            int depth = Integer.parseInt(arr[1]);
+            
+            if (word.equals(target)) return depth;
+            
+            for (int i=0; i<words.length; i++){
+                if (!visited[i] && checkWord(word,words[i])){
+                    visited[i] = true;
+                    q.offer(new String[]{words[i], String.valueOf(depth + 1)});
+                }
+            }
+        }
         
         return answer;
     }
@@ -26,18 +31,9 @@ class Solution {
             char b = target.charAt(i);
             if (a!=b){
                 cnt++;
+                if (cnt > 1) return false;
             }
         }
-        return cnt == 1 ? true : false;
-    }
-    
-    void offerQ(Queue<int[]> q, String word, String[] words, boolean[] visited, int depth){
-        for (int i=0; i<words.length; i++){
-            String target = words[i];
-            if (!visited[i] && checkWord(word, target)){
-                q.offer(new int[]{i,depth+1});
-                visited[i] = true;
-            };
-        }
+        return cnt == 1;
     }
 }
