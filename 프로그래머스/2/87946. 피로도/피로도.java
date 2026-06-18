@@ -1,21 +1,25 @@
 import java.util.*;
 class Solution {
-    int answer = -1;
     public int solution(int k, int[][] dungeons) {
         boolean[] visited = new boolean[dungeons.length];
-        dfs(0,k,visited,dungeons);
-        return answer;
+        
+        return dfs(k,visited,dungeons);
     }
     
-    private void dfs(int depth, int tired, boolean[] visited, int[][]dungeons){
-        answer = Math.max(answer,depth);
+    private int dfs(int tired, boolean[] visited, int[][]dungeons){
+        int maxCount = 0;
+        
         for (int i=0; i<dungeons.length; i++){
-            if (!visited[i] && dungeons[i][0] <= tired){
+            if (!visited[i] && tired >= dungeons[i][0]){
                 visited[i] = true;
-                dfs(depth+1, tired-dungeons[i][1], visited, dungeons);
+                
+                int count = 1 + dfs(tired - dungeons[i][1], visited, dungeons);
+                maxCount = Math.max(maxCount,count);
+                
                 visited[i] = false;
             }
         }
+        return maxCount;
         
     }
 }
