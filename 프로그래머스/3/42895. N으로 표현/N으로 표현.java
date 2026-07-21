@@ -1,60 +1,44 @@
-/*
-# cnt=1
-5
-
-# cnt = 2
-55, 5+5, 5-5, 5*5, 5/5
--> NN + (cnt1 op cnt1)
-
-# cnt = 3
--> NNN + (cnt1 op cnt2) + (cnt2 op cnt1)
-
-# cnt = 4
--> NNNN + (cnt1 op cnt3) + (cnt2 op cnt2) + (cnt3 op cnt1)
-*/
 import java.util.*;
 class Solution {
     public int solution(int N, int number) {
-        Set<Integer>[] sets = new Set[9];
+        Set<Integer> [] sets = new Set[9];
+        
+        // set 초기화
         for (int i=1;i<=8;i++){
             sets[i] = new HashSet<>();
         }
         
-        for (int cnt=1; cnt<=8; cnt++){
-            sets[cnt].add(getSequenceNumber(N,cnt));
-            for (int i=1; i<cnt; i++){
-                Set<Integer> a = sets[i];
-                Set<Integer> b = sets[cnt-i];
-                
-                for (int n1 : a){
-                    for (int n2 : b){
-                        sets[cnt].add(n1+n2);
-                        sets[cnt].add(n1-n2);
-                        sets[cnt].add(n1*n2);
-                        if (n2!=0){
-                            sets[cnt].add(n1/n2);    
+        // 최소값이 8보다 크면 -1 return 조건으로 인한 8까지 수행
+        for (int i=1; i<=8; i++){
+            sets[i].add(makeSequenceNum(N,i));
+            
+            for(int j=1;j<i;j++){
+                Set<Integer> a = sets[j];
+                Set<Integer> b = sets[i-j];
+                for (int num1 : a){
+                    for (int num2 : b){
+                        sets[i].add(num1+num2);
+                        sets[i].add(num1*num2);
+                        sets[i].add(num1-num2);
+                        
+                        if (num2!=0){
+                            sets[i].add(num1/num2);
                         }
                     }
                 }
             }
-            if (sets[cnt].contains(number)){
-                return cnt;
+            if (sets[i].contains(number)){
+                return i; 
             }
+            
         }
-        
-        
         return -1;
     }
-    
-    private int getSequenceNumber(int num,int cnt){
-        // cnt = 1 -> 5
-        // cnt = 2 -> 55
-        // cnt = 3 -> 555
-        
-        StringBuilder sb = new StringBuilder();
-        for (int i=0;i<cnt;i++){
-            sb.append(num);
+    private int makeSequenceNum(int n, int cnt){
+        int result = 0;
+        for (int i=0; i<cnt; i++){
+            result = result*10 + n;
         }
-        return Integer.parseInt(sb.toString());
+        return result;
     }
 }
